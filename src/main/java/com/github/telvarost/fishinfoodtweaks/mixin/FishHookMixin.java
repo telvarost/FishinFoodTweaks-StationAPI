@@ -50,7 +50,7 @@ public abstract class FishHookMixin extends EntityBase {
             )
     )
     public boolean fishinFoodTweaks_method_956(Level instance, EntityBase entityBase) {
-        if (Config.ConfigFields.enableFishSizes) {
+        if (Config.ConfigFields.enableRandomFishSizes) {
             int fishSize = 100;
             Random rand = new Random();
             GammaDistribution gammaDistribution = new GammaDistribution(2, 0.15);
@@ -68,7 +68,7 @@ public abstract class FishHookMixin extends EntityBase {
                     if (fishSize == 1099) {
                         fishSize = fishSize + rand.nextInt(2);
                     }
-                } else if (100 > fishSize){
+                } else if (100 > fishSize) {
                     fishSize = fishinFoodTweaks_computeNormalFishSize(gammaDistribution);
                 }
             } else {

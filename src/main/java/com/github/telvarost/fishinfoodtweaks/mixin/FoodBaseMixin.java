@@ -24,7 +24,7 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
 
     @Inject(method = "use", at = @At(value = "HEAD"), cancellable = true)
     public void fishinFoodTweaks_useFood(ItemInstance itemInstance, Level arg2, PlayerBase arg3, CallbackInfoReturnable<ItemInstance> cir) {
-        if (  (Config.ConfigFields.enableFishSizes)
+        if (  (Config.ConfigFields.enableRandomFishSizes)
            && (  (ItemBase.rawFish.id    == itemInstance.itemId)
               || (ItemBase.cookedFish.id == itemInstance.itemId)
               )
@@ -39,7 +39,7 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
 
     @Override
     public String[] getTooltip(ItemInstance itemInstance, String originalTooltip) {
-        if (  (Config.ConfigFields.enableFishSizes)
+        if (  (Config.ConfigFields.enableRandomFishSizes)
            && (  (ItemBase.rawFish.id    == itemInstance.itemId)
               || (ItemBase.cookedFish.id == itemInstance.itemId)
               )
@@ -68,7 +68,7 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
                 }
             }
 
-            if (Config.ConfigFields.enableFoodHealingTooltips) {
+            if (Config.ConfigFields.enableFishHealingTooltips) {
                 double healingDivisor = (ItemBase.rawFish.id == itemInstance.itemId) ? 100.0 : 50.0;
                 double healingAmount = (Math.floor(fishSize / healingDivisor) / 2.0);
                 return new String[]{originalTooltip, "§4" + "Heals " + healingAmount, "§7" + (fishSize / 10.0) + " cm"};

@@ -27,7 +27,7 @@ public abstract class FurnaceEntityMixin extends TileEntityBase implements Inven
     @Inject(method = "craftRecipe", at = @At(value = "HEAD"), cancellable = true)
     public void fishinFoodTweaks_craftRecipe(CallbackInfo ci) {
         if (this.canAcceptRecipeOutput()) {
-            if (Config.ConfigFields.enableFishSizes) {
+            if (Config.ConfigFields.enableRandomFishSizes) {
                 if (this.inventory[0] != null && this.inventory[0].itemId == ItemBase.rawFish.id) {
                     ModHelper.ModHelperFields.COOKED_RAW_FISH_SIZE = this.inventory[0].getDamage();
                     ModHelper.ModHelperFields.IS_RAW_FISH_CONSUMED = true;
