@@ -22,7 +22,7 @@ public abstract class FishHookMixin extends EntityBase {
     }
 
     @Unique
-    private int computeNormalFishSize(GammaDistribution gammaDistribution)
+    private int fishinFoodTweaks_computeNormalFishSize(GammaDistribution gammaDistribution)
     {
         int fishSize = (int)Math.round(600.0 * gammaDistribution.sample());
 
@@ -49,7 +49,7 @@ public abstract class FishHookMixin extends EntityBase {
                     target = "Lnet/minecraft/level/Level;spawnEntity(Lnet/minecraft/entity/EntityBase;)Z"
             )
     )
-    public boolean method_956(Level instance, EntityBase entityBase) {
+    public boolean fishinFoodTweaks_method_956(Level instance, EntityBase entityBase) {
         if (Config.ConfigFields.enableFishSizes) {
             int fishSize = 100;
             Random rand = new Random();
@@ -69,10 +69,10 @@ public abstract class FishHookMixin extends EntityBase {
                         fishSize = fishSize + rand.nextInt(2);
                     }
                 } else if (100 > fishSize){
-                    fishSize = computeNormalFishSize(gammaDistribution);
+                    fishSize = fishinFoodTweaks_computeNormalFishSize(gammaDistribution);
                 }
             } else {
-                fishSize = computeNormalFishSize(gammaDistribution);
+                fishSize = fishinFoodTweaks_computeNormalFishSize(gammaDistribution);
             }
 
             System.out.println(fishSize);

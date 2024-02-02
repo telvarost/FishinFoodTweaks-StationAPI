@@ -25,7 +25,7 @@ public abstract class FurnaceEntityMixin extends TileEntityBase implements Inven
     @Shadow protected abstract boolean canAcceptRecipeOutput();
 
     @Inject(method = "craftRecipe", at = @At(value = "HEAD"), cancellable = true)
-    public void craftRecipe(CallbackInfo ci) {
+    public void fishinFoodTweaks_craftRecipe(CallbackInfo ci) {
         if (this.canAcceptRecipeOutput()) {
             if (Config.ConfigFields.enableFishSizes) {
                 if (this.inventory[0] != null && this.inventory[0].itemId == ItemBase.rawFish.id) {
@@ -37,11 +37,10 @@ public abstract class FurnaceEntityMixin extends TileEntityBase implements Inven
     }
 
     @Inject(method = "tick", at = @At(value = "RETURN"))
-    public void finalBeta_tickConsumeLavaBucketReturnEmptyBucket(CallbackInfo ci) {
+    public void fishinFoodTweaks_tickConsumeLavaBucketReturnEmptyBucket(CallbackInfo ci) {
         if(ModHelper.ModHelperFields.IS_RAW_FISH_CONSUMED) {
-            this.inventory[2] = new ItemInstance(ItemBase.diamondChestplate);
+            this.inventory[2] = new ItemInstance(ItemBase.cookedFish);
             this.inventory[2].setDamage(ModHelper.ModHelperFields.COOKED_RAW_FISH_SIZE);
-            System.out.println("Cooked!");
             ModHelper.ModHelperFields.IS_RAW_FISH_CONSUMED = false;
         }
     }
