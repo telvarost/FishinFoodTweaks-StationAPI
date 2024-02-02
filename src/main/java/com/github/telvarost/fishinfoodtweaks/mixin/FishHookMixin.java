@@ -53,7 +53,7 @@ public abstract class FishHookMixin extends EntityBase {
         if (Config.ConfigFields.enableFishSizes) {
             int fishSize = 100;
             Random rand = new Random();
-            GammaDistribution gammaDistribution = new GammaDistribution(2, 0.125);
+            GammaDistribution gammaDistribution = new GammaDistribution(2, 0.15);
 
             if (Config.ConfigFields.enableBiggerFish) {
 

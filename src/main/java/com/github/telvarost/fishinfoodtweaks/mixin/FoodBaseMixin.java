@@ -31,7 +31,7 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
         ) {
             --itemInstance.count;
             double healingDivisor = (ItemBase.rawFish.id == itemInstance.itemId) ? 100.0 : 50.0;
-            int healingAmount = (int)Math.round(itemInstance.getDamage() / healingDivisor);
+            int healingAmount = (int)Math.floor(itemInstance.getDamage() / healingDivisor);
             arg3.addHealth(healingAmount);
             cir.setReturnValue(itemInstance);
         }
@@ -44,12 +44,36 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
               || (ItemBase.cookedFish.id == itemInstance.itemId)
               )
         ) {
-            double healingDivisor = (ItemBase.rawFish.id == itemInstance.itemId) ? 100.0 : 50.0;
-            double healingAmount = (Math.round(itemInstance.getDamage() / healingDivisor) / 2.0);
-            if (Config.ConfigFields.enableFoodHealingTooltips) {
-                return new String[]{originalTooltip, "§4" + "Heals " + healingAmount, "§7" + (itemInstance.getDamage() / 10.0) + " cm"};
+            int fishSize = itemInstance.getDamage();
+
+            if (ItemBase.rawFish.id == itemInstance.itemId) {
+                if (1000 < fishSize) {
+                    if (1100 == fishSize) {
+                        originalTooltip = "§bLegendary Fish";
+                    } else {
+                        originalTooltip = "§6Rare Fish";
+                    }
+                } else if (700 == fishSize) {
+                    originalTooltip = "§eLucky Fish";
+                }
             } else {
-                return new String[]{originalTooltip, "§7" + (itemInstance.getDamage() / 10.0) + " cm"};
+                if (1000 < fishSize) {
+                    if (1100 == fishSize) {
+                        originalTooltip = "§bCooked Legendary Fish";
+                    } else {
+                        originalTooltip = "§6Cooked Rare Fish";
+                    }
+                } else if (700 == fishSize) {
+                    originalTooltip = "§eCooked Lucky Fish";
+                }
+            }
+
+            if (Config.ConfigFields.enableFoodHealingTooltips) {
+                double healingDivisor = (ItemBase.rawFish.id == itemInstance.itemId) ? 100.0 : 50.0;
+                double healingAmount = (Math.floor(fishSize / healingDivisor) / 2.0);
+                return new String[]{originalTooltip, "§4" + "Heals " + healingAmount, "§7" + (fishSize / 10.0) + " cm"};
+            } else {
+                return new String[]{originalTooltip, "§7" + (fishSize / 10.0) + " cm"};
             }
         } else {
             return new String[]{originalTooltip};
