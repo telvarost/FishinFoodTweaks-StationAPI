@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.github.telvarost.fishinfoodtweaks.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "FishHookMixin",
+    "FoodBaseMixin",
+    "FurnaceEntityMixin",
+    "MinecraftAccessor"
+  ],
+  "server": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

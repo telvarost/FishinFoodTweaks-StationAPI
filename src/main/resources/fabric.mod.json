@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "fishinfoodtweaks",
+  "version": "${version}",
+
+  "name": "FishinFoodTweaks",
+  "description": "Fish sizes and food tweaks. Special thanks to the BTA community for the suggestions!",
+  "authors": [
+    "Telvarost"
+  ],
+  "contact": {
+    "issues": "https://github.com/telvarost/FishinFoodTweaks-StationAPI/issues",
+    "homepage": "https://github.com/telvarost/FishinFoodTweaks-StationAPI/",
+    "sources": "https://github.com/telvarost/FishinFoodTweaks-StationAPI/"
+  },
+
+  "license": "MIT",
+  "icon": "assets/fishinfoodtweaks/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "stationapi:event_bus": [
+    ],
+    "stationapi:event_bus_client": [
+    ],
+    "stationapi:event_bus_server": [
+    ],
+    "gcapi": [
+      "com.github.telvarost.fishinfoodtweaks.Config"
+    ],
+    "gcapi:presave": [
+    ]
+  },
+  "mixins": [
+    "fishinfoodtweaks.mixins.json"
+  ],
+
+  "depends": {
+    "minecraft": "1.0.0-beta.7.3"
+  }
+}
