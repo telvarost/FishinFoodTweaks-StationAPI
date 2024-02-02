@@ -6,8 +6,7 @@
   "mixins": [
     "FishHookMixin",
     "FoodBaseMixin",
-    "FurnaceEntityMixin",
-    "MinecraftAccessor"
+    "FurnaceEntityMixin"
   ],
   "server": [
   ],
