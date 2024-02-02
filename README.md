@@ -12,11 +12,13 @@ You will need ModMenu and GlassConfigAPI if you want to tweak different parts of
 
 ## List of changes
 
-* Enable fish sizes to catch fish of different lengths!
-  * Every 10 cm of fish (rounded) provides half a heart of health.
-* Enable bigger fish to catch fish up to 110 cm in length.
+* Enable random fish sizes to catch fish of different lengths!
+  * Every 10 cm of fish provides half a heart of health.
+  * When fish is cooked very 5 cm of fish provides half a heart of health.
+  * Enable fish healing tooltips to show healing amounts.
+    * Enable food tooltips to show healing amounts for other foods as well.
+* Enable oceanic fish to catch fish up to 110 cm in length.
   * Default fish sizes will be between 10 cm and 70 cm.
-* Customize food tooltips to show healing amounts.
 
 ## Installation using Prism Launcher
 
