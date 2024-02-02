@@ -19,7 +19,7 @@ public class FoodBaseMixin extends ItemBase implements CustomTooltipProvider {
         if (  (Config.ConfigFields.enableFishSizes)
            && (ItemBase.rawFish.id == itemInstance.itemId)
         ) {
-            return new String[]{originalTooltip, "§7" + itemInstance.getDamage() + " cm", "§c" + "Heals " + Math.round(itemInstance.getDamage() / 10.0f)};
+            return new String[]{originalTooltip, "§c" + "Heals " + (Math.round(itemInstance.getDamage() / 100.0) / 2.0), "§7" + (itemInstance.getDamage() / 10.0) + " cm"};
         } else {
             return new String[]{originalTooltip};
         }
