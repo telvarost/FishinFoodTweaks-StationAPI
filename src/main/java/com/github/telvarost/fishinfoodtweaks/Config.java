@@ -16,7 +16,10 @@ public class Config {
         public static Boolean enableRandomFishSizes = true;
 
         @ConfigName("Display Fish Healing Tooltip")
-        public static Boolean enableFishHealingTooltips = false;
+        public static Boolean enableFishHealingTooltip = false;
+
+        @ConfigName("Display Food Healing Tooltips")
+        public static Boolean enableFoodHealingTooltips = false;
 
         @ConfigName("Enable Oceanic Fish")
         @Comment("Increases the max fish size from 70 to 110")

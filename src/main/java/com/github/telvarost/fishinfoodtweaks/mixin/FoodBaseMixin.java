@@ -68,7 +68,7 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
                 }
             }
 
-            if (Config.ConfigFields.enableFishHealingTooltips) {
+            if (Config.ConfigFields.enableFishHealingTooltip) {
                 double healingDivisor = (ItemBase.rawFish.id == itemInstance.itemId) ? 100.0 : 50.0;
                 double healingAmount = (Math.floor(fishSize / healingDivisor) / 2.0);
                 return new String[]{originalTooltip, "§4" + "Heals " + healingAmount, "§7" + (fishSize / 10.0) + " cm"};
@@ -76,7 +76,11 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
                 return new String[]{originalTooltip, "§7" + (fishSize / 10.0) + " cm"};
             }
         } else {
-            return new String[]{originalTooltip};
+            if (Config.ConfigFields.enableFoodHealingTooltips) {
+                return new String[]{originalTooltip, "§4" + "Heals " + (this.healAmount / 2.0)};
+            } else {
+                return new String[]{originalTooltip};
+            }
         }
     }
 }
