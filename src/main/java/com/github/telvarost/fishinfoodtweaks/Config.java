@@ -15,5 +15,12 @@ public class Config {
         @ConfigName("Enable Raw Fish Size")
         @Comment("Raw fish size tooltip displays if enabled")
         public static Boolean enableFishSizes = true;
+
+        @ConfigName("Enable Bigger Fish")
+        @Comment("Increases the max fish size from 70 to 110")
+        public static Boolean enableBiggerFish = false;
+
+        @ConfigName("Enable Food Healing Tooltips")
+        public static Boolean enableFoodHealingTooltips = false;
     }
 }
