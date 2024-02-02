@@ -46,7 +46,11 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
         ) {
             double healingDivisor = (ItemBase.rawFish.id == itemInstance.itemId) ? 100.0 : 50.0;
             double healingAmount = (Math.round(itemInstance.getDamage() / healingDivisor) / 2.0);
-            return new String[]{originalTooltip, "§4" + "Heals " + healingAmount, "§7" + (itemInstance.getDamage() / 10.0) + " cm"};
+            if (Config.ConfigFields.enableFoodHealingTooltips) {
+                return new String[]{originalTooltip, "§4" + "Heals " + healingAmount, "§7" + (itemInstance.getDamage() / 10.0) + " cm"};
+            } else {
+                return new String[]{originalTooltip, "§7" + (itemInstance.getDamage() / 10.0) + " cm"};
+            }
         } else {
             return new String[]{originalTooltip};
         }
