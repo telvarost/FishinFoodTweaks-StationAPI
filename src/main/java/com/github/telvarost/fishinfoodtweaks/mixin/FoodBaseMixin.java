@@ -47,23 +47,23 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
             int fishSize = itemInstance.getDamage();
 
             if (ItemBase.rawFish.id == itemInstance.itemId) {
-                if (1000 < fishSize) {
-                    if (1100 == fishSize) {
+                if (990 <= fishSize) {
+                    if (1090 <= fishSize) {
                         originalTooltip = "§bLegendary Fish";
                     } else {
                         originalTooltip = "§6Rare Fish";
                     }
-                } else if (700 == fishSize) {
+                } else if (690 <= fishSize && fishSize <= 700) {
                     originalTooltip = "§eLucky Fish";
                 }
             } else {
-                if (1000 < fishSize) {
-                    if (1100 == fishSize) {
+                if (990 <= fishSize) {
+                    if (1090 <= fishSize) {
                         originalTooltip = "§bCooked Legendary Fish";
                     } else {
                         originalTooltip = "§6Cooked Rare Fish";
                     }
-                } else if (700 == fishSize) {
+                } else if (690 <= fishSize && fishSize <= 700) {
                     originalTooltip = "§eCooked Lucky Fish";
                 }
             }
