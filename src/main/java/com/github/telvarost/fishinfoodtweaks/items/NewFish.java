@@ -13,14 +13,14 @@ import net.modificationstation.stationapi.api.util.Identifier;
 import net.modificationstation.stationapi.api.util.Namespace;
 import net.modificationstation.stationapi.api.util.Null;
 
-public class NewFish extends TemplateFoodItem implements CustomTooltipProvider {
+public class NewFish extends TemplateFoodItem {//implements CustomTooltipProvider {
 
     public NewFish(Identifier identifier, int healAmount, boolean isWolfFood) {
         super(identifier, healAmount, isWolfFood);
     }
 
-    @Override
-    public String[] getTooltip(ItemInstance itemInstance, String originalTooltip) {
-        return new String[]{"Music Disc"};
-    }
+//    @Override
+//    public String[] getTooltip(ItemInstance itemInstance, String originalTooltip) {
+//        return new String[]{"Music Disc"};
+//    }
 }

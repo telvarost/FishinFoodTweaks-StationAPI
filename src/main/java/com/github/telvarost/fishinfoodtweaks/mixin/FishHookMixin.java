@@ -1,6 +1,7 @@
 package com.github.telvarost.fishinfoodtweaks.mixin;
 
 import com.github.telvarost.fishinfoodtweaks.Config;
+import com.github.telvarost.fishinfoodtweaks.items.Fish;
 import net.minecraft.entity.EntityBase;
 import net.minecraft.entity.FishHook;
 import net.minecraft.entity.Item;
@@ -75,6 +76,7 @@ public abstract class FishHookMixin extends EntityBase {
                 fishSize = fishinFoodTweaks_computeNormalFishSize(gammaDistribution);
             }
 
+            ((Item)entityBase).item = new ItemInstance(Fish.raw_rainbow_fish, 1);
             ((Item)entityBase).item.setDamage(fishSize);
             return instance.spawnEntity(entityBase);
         } else {
