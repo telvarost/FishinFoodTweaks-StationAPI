@@ -1,6 +1,7 @@
 package com.github.telvarost.fishinfoodtweaks.mixin;
 
 import com.github.telvarost.fishinfoodtweaks.Config;
+import com.github.telvarost.fishinfoodtweaks.items.Fish;
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.item.ItemBase;
 import net.minecraft.item.ItemInstance;
@@ -25,8 +26,9 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
     @Inject(method = "use", at = @At(value = "HEAD"), cancellable = true)
     public void fishinFoodTweaks_useFood(ItemInstance itemInstance, Level arg2, PlayerBase arg3, CallbackInfoReturnable<ItemInstance> cir) {
         if (  (Config.ConfigFields.enableRandomFishSizes)
-           && (  (ItemBase.rawFish.id    == itemInstance.itemId)
-              || (ItemBase.cookedFish.id == itemInstance.itemId)
+           && (  (ItemBase.rawFish.id      == itemInstance.itemId)
+              || (ItemBase.cookedFish.id   == itemInstance.itemId)
+              || (Fish.raw_rainbow_fish.id == itemInstance.itemId)
               )
         ) {
             --itemInstance.count;
