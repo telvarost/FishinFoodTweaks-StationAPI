@@ -28,7 +28,7 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
         if (  (Config.ConfigFields.enableRandomFishSizes)
            && (  (ItemBase.rawFish.id      == itemInstance.itemId)
               || (ItemBase.cookedFish.id   == itemInstance.itemId)
-              || (Fish.raw_rainbow_fish.id == itemInstance.itemId)
+              || (Fish.raw_sepia_fish.id == itemInstance.itemId)
               )
         ) {
             --itemInstance.count;

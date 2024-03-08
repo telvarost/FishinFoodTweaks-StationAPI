@@ -76,7 +76,7 @@ public abstract class FishHookMixin extends EntityBase {
                 fishSize = fishinFoodTweaks_computeNormalFishSize(gammaDistribution);
             }
 
-            ((Item)entityBase).item = new ItemInstance(Fish.raw_rainbow_fish, 1);
+            ((Item)entityBase).item = new ItemInstance(Fish.raw_sepia_fish, 1);
             ((Item)entityBase).item.setDamage(fishSize);
             return instance.spawnEntity(entityBase);
         } else {
