@@ -1,8 +1,8 @@
-item.RawSepiaFish.name=Raw Sepia Fish
-item.CookedSepiaFish.name=Cooked Sepia Fish
-item.RawSalmonFish.name=Raw Salmon Fish
-item.CookedSalmonFish.name=Cooked Salmon Fish
-item.RawVioletFish.name=Raw Violet Fish
-item.CookedVioletFish.name=Cooked Violet Fish
-item.RawOceanFish.name=Raw Ocean Fish
+item.RawSepiaFish.name=Pond Fish
+item.CookedSepiaFish.name=Cooked Pond Fish
+item.RawSalmonFish.name=River Fish
+item.CookedSalmonFish.name=Cooked River Fish
+item.RawVioletFish.name=Sea Fish
+item.CookedVioletFish.name=Cooked Sea Fish
+item.RawOceanFish.name=Ocean Fish
 item.CookedOceanFish.name=Cooked Ocean Fish

@@ -2,6 +2,7 @@ package com.github.telvarost.fishinfoodtweaks.mixin;
 
 import com.github.telvarost.fishinfoodtweaks.Config;
 import com.github.telvarost.fishinfoodtweaks.items.Fish;
+import net.minecraft.block.BlockBase;
 import net.minecraft.entity.EntityBase;
 import net.minecraft.entity.FishHook;
 import net.minecraft.entity.Item;
@@ -13,6 +14,8 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @Mixin(FishHook.class)
@@ -76,11 +79,72 @@ public abstract class FishHookMixin extends EntityBase {
                 fishSize = fishinFoodTweaks_computeNormalFishSize(gammaDistribution);
             }
 
+            int amountOfWaterBlocks = 0;
+            int searchX = (int)this.x;
+            int searchY = (int)this.y;
+            int searchZ = (int)this.z;
+            int[] currentBlockIds = new int[9];
+
+            currentBlockIds[0] = instance.getTileId(searchX, searchY, searchZ);
+            if (fishinFoodTweaks_isWaterBlock(currentBlockIds[0])) {
+                amountOfWaterBlocks++;
+            }
+
+            /** - Search North */
+            while (50 > amountOfWaterBlocks) {
+                searchX++;
+                currentBlockIds[1] = instance.getTileId(searchX, searchY, searchZ);
+                if (fishinFoodTweaks_isWaterBlock(currentBlockIds[1])) {
+                    amountOfWaterBlocks++;
+                } else {
+                    break;
+                }
+            }
+            searchX = (int)this.x;
+            searchY = (int)this.y;
+            searchZ = (int)this.z;
+
+            /** - Search South */
+            while (50 > amountOfWaterBlocks) {
+                searchX--;
+                currentBlockIds[1] = instance.getTileId(searchX, searchY, searchZ);
+                if (fishinFoodTweaks_isWaterBlock(currentBlockIds[1])) {
+                    amountOfWaterBlocks++;
+                } else {
+                    break;
+                }
+            }
+            searchX = (int)this.x;
+            searchY = (int)this.y;
+            searchZ = (int)this.z;
+
+            /** - Search NorthEast */
+            while (50 > amountOfWaterBlocks) {
+                searchX++;
+                searchZ++;
+                currentBlockIds[1] = instance.getTileId(searchX, searchY, searchZ);
+                if (fishinFoodTweaks_isWaterBlock(currentBlockIds[1])) {
+                    amountOfWaterBlocks++;
+                } else {
+                    break;
+                }
+            }
+            searchX = (int)this.x;
+            searchY = (int)this.y;
+            searchZ = (int)this.z;
+
             ((Item)entityBase).item = new ItemInstance(Fish.raw_sepia_fish, 1);
             ((Item)entityBase).item.setDamage(fishSize);
             return instance.spawnEntity(entityBase);
         } else {
             return instance.spawnEntity(entityBase);
         }
+    }
+
+    @Unique
+    private boolean fishinFoodTweaks_isWaterBlock(int blockId) {
+        return (  (BlockBase.STILL_WATER.id == blockId)
+               || (BlockBase.FLOWING_WATER.id == blockId)
+               );
     }
 }
