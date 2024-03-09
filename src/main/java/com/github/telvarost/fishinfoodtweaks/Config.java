@@ -15,11 +15,19 @@ public class Config {
         @ConfigName("Allow Catching Random Fish Sizes")
         public static Boolean enableRandomFishSizes = true;
 
+        @ConfigName("Calculate Water Surface Size")
+        @Comment("Adjusts fish size probability slightly")
+        public static Boolean calculateWaterSurfaceSize = true;
+
         @ConfigName("Display Fish Healing Tooltip")
         public static Boolean enableFishHealingTooltip = false;
 
         @ConfigName("Display Food Healing Tooltips")
         public static Boolean enableFoodHealingTooltips = false;
+
+        @ConfigName("Enable Non-vanilla Fish")
+        @Comment("Allows non-vanilla fish types to be caught")
+        public static Boolean enableNonVanillaFish = false;
 
         @ConfigName("Enable Oceanic Fish")
         @Comment("Increases the max fish size from 70 to 110")

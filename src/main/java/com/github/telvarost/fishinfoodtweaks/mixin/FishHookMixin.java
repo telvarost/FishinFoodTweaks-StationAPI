@@ -21,29 +21,21 @@ import java.util.Random;
 @Mixin(FishHook.class)
 public abstract class FishHookMixin extends EntityBase {
 
+    @Unique
+    private int _amountOfWaterBlocks = 0;
+    @Unique
+    private int _calcX = 0;
+    @Unique
+    private int _calcY = 0;
+    @Unique
+    private int _calcZ = 0;
+    @Unique
+    private int _blockY = 0;
+    @Unique
+    private boolean _specialFish = false;
+
     public FishHookMixin(Level arg) {
         super(arg);
-    }
-
-    @Unique
-    private int fishinFoodTweaks_computeNormalFishSize(GammaDistribution gammaDistribution)
-    {
-        int fishSize = (int)Math.round(600.0 * gammaDistribution.sample());
-
-        if (550 < fishSize) {
-            int ones = rand.nextInt(10) * 10;
-            int tenths = rand.nextInt(10);
-
-            fishSize = 600 + ones + tenths;
-
-            if (fishSize == 699) {
-                fishSize = fishSize + rand.nextInt(2);
-            }
-        } else {
-            fishSize = fishSize + 100;
-        }
-
-        return fishSize;
     }
 
     @Redirect(
@@ -55,15 +47,58 @@ public abstract class FishHookMixin extends EntityBase {
     )
     public boolean fishinFoodTweaks_method_956(Level instance, EntityBase entityBase) {
         if (Config.ConfigFields.enableRandomFishSizes) {
-            int fishSize = 100;
+            if (Config.ConfigFields.calculateWaterSurfaceSize) {
+                /** - Set up water block search */
+                _amountOfWaterBlocks = 0;
+                _blockY = 0;
+                _calcX = (int) Math.floor(this.x);
+                _calcY = (int) Math.floor(this.y);
+                _calcZ = (int) Math.floor(this.z);
+
+                /** - Search for starting water block */
+                int blockId = instance.getTileId(_calcX, _calcY, _calcZ);
+                if ((BlockBase.STILL_WATER.id == blockId)
+                        || (BlockBase.FLOWING_WATER.id == blockId)
+                ) {
+                    _amountOfWaterBlocks++;
+                } else {
+                    _blockY--;
+                    blockId = instance.getTileId(_calcX, _calcY + _blockY, _calcZ);
+                    if ((BlockBase.STILL_WATER.id == blockId)
+                            || (BlockBase.FLOWING_WATER.id == blockId)
+                    ) {
+                        _amountOfWaterBlocks++;
+                    }
+                }
+
+                /** - Search for surface water blocks in eight directions from starting water block */
+                if (0 < _amountOfWaterBlocks) {
+                    fishinFoodTweaks_findWaterInDirection(instance, 1, 1);   // North East
+                    fishinFoodTweaks_findWaterInDirection(instance, 1, 0);   // North
+                    fishinFoodTweaks_findWaterInDirection(instance, 1, -1);  // North West
+                    fishinFoodTweaks_findWaterInDirection(instance, -1, 1);  // South East
+                    fishinFoodTweaks_findWaterInDirection(instance, -1, 0);  // South
+                    fishinFoodTweaks_findWaterInDirection(instance, -1, -1); // South West
+                    fishinFoodTweaks_findWaterInDirection(instance, 0, 1);   // East
+                    fishinFoodTweaks_findWaterInDirection(instance, 0, -1);  // West
+                }
+            } else {
+                _amountOfWaterBlocks = 250;
+            }
+
+            /** - Set up for fish size calculations */
+            double surfaceWaterAdjustment = (_amountOfWaterBlocks / 10000.0);
+            int fishSize = 20;
+            _specialFish = false;
             Random rand = new Random();
-            GammaDistribution gammaDistribution = new GammaDistribution(2, 0.15);
+            GammaDistribution gammaDistribution = new GammaDistribution(2, 0.125 + surfaceWaterAdjustment);
 
-            if (Config.ConfigFields.enableBiggerFish) {
-
+            /** - Calculate size of fish */
+            if (Config.ConfigFields.enableBiggerFish && 250 <= _amountOfWaterBlocks) {
                 fishSize = (int)Math.round(1000.0 * gammaDistribution.sample());
 
-                if (1000 < fishSize) {
+                if (1000 <= fishSize) {
+                    _specialFish = true;
                     int ones = rand.nextInt(10) * 10;
                     int tenths = rand.nextInt(10);
 
@@ -79,72 +114,118 @@ public abstract class FishHookMixin extends EntityBase {
                 fishSize = fishinFoodTweaks_computeNormalFishSize(gammaDistribution);
             }
 
-            int amountOfWaterBlocks = 0;
-            int searchX = (int)this.x;
-            int searchY = (int)this.y;
-            int searchZ = (int)this.z;
-            int[] currentBlockIds = new int[9];
+            if (Config.ConfigFields.enableNonVanillaFish) {
+                if (false == _specialFish) {
+                    int fishType;
 
-            currentBlockIds[0] = instance.getTileId(searchX, searchY, searchZ);
-            if (fishinFoodTweaks_isWaterBlock(currentBlockIds[0])) {
-                amountOfWaterBlocks++;
-            }
+                    if (Config.ConfigFields.enableBiggerFish && 250 <= _amountOfWaterBlocks) {
+                        fishType = rand.nextInt(4);
+                        if (Config.ConfigFields.calculateWaterSurfaceSize && 1 == fishType) {
+                            fishType = rand.nextInt(4);
+                        }
+                    } else if (150 <= _amountOfWaterBlocks) {
+                        fishType = rand.nextInt(3);
+                    } else if (50 <= _amountOfWaterBlocks) {
+                        fishType = rand.nextInt(2);
+                    } else {
+                        fishType = 0;
+                    }
 
-            /** - Search North */
-            while (50 > amountOfWaterBlocks) {
-                searchX++;
-                currentBlockIds[1] = instance.getTileId(searchX, searchY, searchZ);
-                if (fishinFoodTweaks_isWaterBlock(currentBlockIds[1])) {
-                    amountOfWaterBlocks++;
-                } else {
-                    break;
+                    switch (fishType)
+                    {
+                        default:
+                        case 0:
+                            ((Item)entityBase).item = new ItemInstance(Fish.raw_sepia_fish, 1);
+
+                            if (400 <= fishSize) {
+                                fishSize = (int)(fishSize * 0.50);
+                            } else if (300 <= fishSize) {
+                                fishSize = (int)(fishSize * 0.75);
+                            }
+                            break;
+
+                        case 1:
+                            ((Item)entityBase).item = new ItemInstance(Fish.raw_salmon_fish, 1);
+
+                            if (350 <= fishSize) {
+                                fishSize = (int)(fishSize * 0.8);
+                            } else {
+                                fishSize = fishSize + 10;
+                                fishSize = (int)(fishSize * 1.1);
+                            }
+                            break;
+
+                        case 2:
+                            ((Item)entityBase).item = new ItemInstance(Fish.raw_violet_fish, 1);
+
+                            if (450 <= fishSize) {
+                                fishSize = (int)(fishSize * 0.9);
+                            } else {
+                                fishSize = fishSize + 50;
+                                fishSize = (int)(fishSize * 1.1);
+                            }
+                            break;
+
+                        case 3:
+                            ((Item)entityBase).item = new ItemInstance(Fish.raw_ocean_fish, 1);
+
+                            if (750 <= fishSize) {
+                                /** - Do nothing */
+                            } else {
+                                fishSize = fishSize + 125;
+                                fishSize = (int)(fishSize * 1.1);
+                            }
+                            break;
+                    }
                 }
             }
-            searchX = (int)this.x;
-            searchY = (int)this.y;
-            searchZ = (int)this.z;
 
-            /** - Search South */
-            while (50 > amountOfWaterBlocks) {
-                searchX--;
-                currentBlockIds[1] = instance.getTileId(searchX, searchY, searchZ);
-                if (fishinFoodTweaks_isWaterBlock(currentBlockIds[1])) {
-                    amountOfWaterBlocks++;
-                } else {
-                    break;
-                }
-            }
-            searchX = (int)this.x;
-            searchY = (int)this.y;
-            searchZ = (int)this.z;
-
-            /** - Search NorthEast */
-            while (50 > amountOfWaterBlocks) {
-                searchX++;
-                searchZ++;
-                currentBlockIds[1] = instance.getTileId(searchX, searchY, searchZ);
-                if (fishinFoodTweaks_isWaterBlock(currentBlockIds[1])) {
-                    amountOfWaterBlocks++;
-                } else {
-                    break;
-                }
-            }
-            searchX = (int)this.x;
-            searchY = (int)this.y;
-            searchZ = (int)this.z;
-
-            ((Item)entityBase).item = new ItemInstance(Fish.raw_sepia_fish, 1);
             ((Item)entityBase).item.setDamage(fishSize);
-            return instance.spawnEntity(entityBase);
-        } else {
-            return instance.spawnEntity(entityBase);
         }
+
+        return instance.spawnEntity(entityBase);
     }
 
     @Unique
-    private boolean fishinFoodTweaks_isWaterBlock(int blockId) {
-        return (  (BlockBase.STILL_WATER.id == blockId)
+    private int fishinFoodTweaks_computeNormalFishSize(GammaDistribution gammaDistribution)
+    {
+        int fishSize = (int)Math.round(600.0 * gammaDistribution.sample());
+
+        if (550 <= fishSize) {
+            _specialFish = true;
+            int ones = rand.nextInt(10) * 10;
+            int tenths = rand.nextInt(10);
+
+            fishSize = 600 + ones + tenths;
+
+            if (fishSize == 699) {
+                fishSize = fishSize + rand.nextInt(2);
+            }
+        } else {
+            fishSize = fishSize + 100;
+        }
+
+        return fishSize;
+    }
+
+    @Unique
+    private void fishinFoodTweaks_findWaterInDirection(Level instance, int dirX, int dirZ) {
+        int searchX = _calcX;
+        int searchY = _calcY + _blockY;
+        int searchZ = _calcZ;
+
+        while (350 > _amountOfWaterBlocks) {
+            searchX = searchX + dirX;
+            searchZ = searchZ + dirZ;
+
+            int blockId = instance.getTileId(searchX, searchY, searchZ);
+            if (  (BlockBase.STILL_WATER.id == blockId)
                || (BlockBase.FLOWING_WATER.id == blockId)
-               );
+            ) {
+                _amountOfWaterBlocks++;
+            } else {
+                break;
+            }
+        }
     }
 }
