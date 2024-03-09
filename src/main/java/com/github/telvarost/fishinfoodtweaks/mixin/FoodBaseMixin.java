@@ -10,6 +10,7 @@ import net.minecraft.level.Level;
 import net.modificationstation.stationapi.api.client.item.CustomTooltipProvider;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -26,13 +27,12 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
     @Inject(method = "use", at = @At(value = "HEAD"), cancellable = true)
     public void fishinFoodTweaks_useFood(ItemInstance itemInstance, Level arg2, PlayerBase arg3, CallbackInfoReturnable<ItemInstance> cir) {
         if (  (Config.ConfigFields.enableRandomFishSizes)
-           && (  (ItemBase.rawFish.id      == itemInstance.itemId)
-              || (ItemBase.cookedFish.id   == itemInstance.itemId)
-              || (Fish.raw_sepia_fish.id == itemInstance.itemId)
+           && (  (fishinFoodTweaks_isRawFish(itemInstance.itemId))
+              || (fishinFoodTweaks_isCookedFish(itemInstance.itemId))
               )
         ) {
             --itemInstance.count;
-            double healingDivisor = (ItemBase.rawFish.id == itemInstance.itemId) ? 100.0 : 50.0;
+            double healingDivisor = (fishinFoodTweaks_isRawFish(itemInstance.itemId)) ? 100.0 : 50.0;
             int healingAmount = (int)Math.floor(itemInstance.getDamage() / healingDivisor);
             arg3.addHealth(healingAmount);
             cir.setReturnValue(itemInstance);
@@ -42,13 +42,13 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
     @Override
     public String[] getTooltip(ItemInstance itemInstance, String originalTooltip) {
         if (  (Config.ConfigFields.enableRandomFishSizes)
-           && (  (ItemBase.rawFish.id    == itemInstance.itemId)
-              || (ItemBase.cookedFish.id == itemInstance.itemId)
+           && (  (fishinFoodTweaks_isRawFish(itemInstance.itemId))
+              || (fishinFoodTweaks_isCookedFish(itemInstance.itemId))
               )
         ) {
             int fishSize = itemInstance.getDamage();
 
-            if (ItemBase.rawFish.id == itemInstance.itemId) {
+            if (fishinFoodTweaks_isRawFish(itemInstance.itemId)) {
                 if (990 <= fishSize) {
                     if (1090 <= fishSize) {
                         originalTooltip = "§bLegendary Fish";
@@ -71,7 +71,7 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
             }
 
             if (Config.ConfigFields.enableFishHealingTooltip) {
-                double healingDivisor = (ItemBase.rawFish.id == itemInstance.itemId) ? 100.0 : 50.0;
+                double healingDivisor = (fishinFoodTweaks_isRawFish(itemInstance.itemId)) ? 100.0 : 50.0;
                 double healingAmount = (Math.floor(fishSize / healingDivisor) / 2.0);
                 return new String[]{originalTooltip, "§4" + "Heals " + healingAmount, "§7" + (fishSize / 10.0) + " cm"};
             } else {
@@ -84,5 +84,25 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
                 return new String[]{originalTooltip};
             }
         }
+    }
+
+    @Unique
+    private boolean fishinFoodTweaks_isRawFish(int itemId) {
+        return (  (ItemBase.rawFish.id     == itemId)
+               || (Fish.raw_sepia_fish.id  == itemId)
+               || (Fish.raw_salmon_fish.id == itemId)
+               || (Fish.raw_violet_fish.id == itemId)
+               || (Fish.raw_ocean_fish.id  == itemId)
+               );
+    }
+
+    @Unique
+    private boolean fishinFoodTweaks_isCookedFish(int itemId) {
+        return (  (ItemBase.cookedFish.id     == itemId)
+                || (Fish.cooked_sepia_fish.id  == itemId)
+                || (Fish.cooked_salmon_fish.id == itemId)
+                || (Fish.cooked_violet_fish.id == itemId)
+                || (Fish.cooked_ocean_fish.id  == itemId)
+        );
     }
 }
