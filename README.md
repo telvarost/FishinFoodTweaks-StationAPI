@@ -1,6 +1,6 @@
 # FishinFoodTweaks StationAPI Edition for Minecraft Beta 1.7.3
 
-A StationAPI mod for Minecraft Beta 1.7.3 adds fish sizes and food tweaks. Special thanks to the BTA community for the suggestions!
+A StationAPI mod for Minecraft Beta 1.7.3 adds fish sizes and food tweaks. Special thanks to the BTA community for the suggestions and to PsychedeliCon for the new fish textures!
 
 **If you're looking for modern Minecraft recipes:** https://github.com/telvarost/MostlyModernRecipes-StationAPI
 
