@@ -1,10 +1,5 @@
 package com.github.telvarost.fishinfoodtweaks;
 
-import net.minecraft.block.BlockBase;
-import net.minecraft.item.ItemBase;
-
-import java.util.ArrayList;
-
 public class ModHelper {
 
     public static class ModHelperFields {

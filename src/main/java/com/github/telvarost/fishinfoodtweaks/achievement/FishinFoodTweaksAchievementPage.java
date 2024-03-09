@@ -3,7 +3,6 @@ package com.github.telvarost.fishinfoodtweaks.achievement;
 import net.minecraft.block.BlockBase;
 import net.modificationstation.stationapi.api.client.gui.screen.achievement.AchievementPage;
 import net.modificationstation.stationapi.api.util.Identifier;
-import net.modificationstation.stationapi.api.util.math.MathHelper;
 
 import java.util.Random;
 

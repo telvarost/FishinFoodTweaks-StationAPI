@@ -156,7 +156,7 @@ public abstract class FishHookMixin extends EntityBase {
             }
 
             if (null != player) {
-                player.incrementStat(FishinFoodTweaksAchievements.WISHIN_I_WAS_FISHIN);
+                player.incrementStat(FishinFoodTweaksAchievements.FIRST_UNIQUE_FISH);
                 if (_specialFish) {
                     player.incrementStat(FishinFoodTweaksAchievements.SPECIAL_FISH);
                 }

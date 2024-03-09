@@ -16,9 +16,9 @@ public class FishinFoodTweaksAchievements {
 	public static final List<Achievement> ACHIEVEMENTS = new ArrayList<>();
 	private static int achievementID = 11000;
 
-	public static final Achievement WISHIN_I_WAS_FISHIN = make("wishin_i_was_fishin", ItemBase.fishingRod, 0, 0, null, false);
-	public static final Achievement SPECIAL_FISH = make("special_fish", ItemBase.rawFish, 2, -2, WISHIN_I_WAS_FISHIN, true);
-	public static final Achievement LITTLE_FISH = make("little_fish", Fish.raw_common_fish, -2, 0, WISHIN_I_WAS_FISHIN, false);
+	public static final Achievement FIRST_UNIQUE_FISH = make("first_unique_fish", ItemBase.fishingRod, 0, 0, null, false);
+	public static final Achievement SPECIAL_FISH = make("special_fish", ItemBase.rawFish, 2, -2, FIRST_UNIQUE_FISH, true);
+	public static final Achievement LITTLE_FISH = make("little_fish", Fish.raw_common_fish, -2, 0, FIRST_UNIQUE_FISH, false);
 	public static final Achievement OCEAN_FISH = make("ocean_fish", Fish.raw_ocean_fish, 0, 2, LITTLE_FISH, false);
 
 	private static Achievement make(String name, BlockBase icon, int x, int y, Achievement parent) {
@@ -35,17 +35,4 @@ public class FishinFoodTweaksAchievements {
 		ACHIEVEMENTS.add(achievement);
 		return achievement;
 	}
-
-//	public static int readStat(Stat stat) {
-//		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-//			return getStatClient(stat);
-//		}
-//		// No way to read from server, not handling
-//		return 0;
-//	}
-
-//	@SuppressWarnings("unchecked")
-//	private static int getStatClient(Stat stat) {
-//		return (int) BNBClient.getMinecraft().statFileWriter.getHashMapOfStats().getOrDefault(stat, 0);
-//	}
 }

@@ -8,8 +8,8 @@ item.RawOceanFish.name=Ocean Fish
 item.CookedOceanFish.name=Cooked Ocean Fish
 
 stationapi\:achievementPage.achievements=FishinFoodTweaks
-achievement.wishin_i_was_fishin=Wishin' I Was Fishin'
-achievement.wishin_i_was_fishin.desc=Fish up any fish with a unique length
+achievement.first_unique_fish=Wishin' I Was Fishin'
+achievement.first_unique_fish.desc=Fish up any fish with a unique length
 achievement.special_fish=Wow! This is a real lunker!
 achievement.special_fish.desc=Catch a lucky, rare, or legendary fish
 achievement.ocean_fish=100% O-fish-ial Tuna!

@@ -3,7 +3,6 @@ package com.github.telvarost.fishinfoodtweaks.mixin;
 import com.github.telvarost.fishinfoodtweaks.Config;
 import com.github.telvarost.fishinfoodtweaks.ModHelper;
 import com.github.telvarost.fishinfoodtweaks.items.Fish;
-import net.minecraft.entity.Item;
 import net.minecraft.inventory.InventoryBase;
 import net.minecraft.item.ItemBase;
 import net.minecraft.tileentity.TileEntityBase;
