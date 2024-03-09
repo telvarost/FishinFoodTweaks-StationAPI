@@ -22,8 +22,6 @@ public abstract class FurnaceEntityMixin extends TileEntityBase implements Inven
     @Shadow
     private ItemInstance[] inventory;
 
-    @Shadow public int burnTime;
-
     @Shadow protected abstract boolean canAcceptRecipeOutput();
 
     @Inject(method = "craftRecipe", at = @At(value = "HEAD"), cancellable = true)
@@ -58,7 +56,7 @@ public abstract class FurnaceEntityMixin extends TileEntityBase implements Inven
     }
 
     @Inject(method = "tick", at = @At(value = "RETURN"))
-    public void fishinFoodTweaks_tickConsumeLavaBucketReturnEmptyBucket(CallbackInfo ci) {
+    public void fishinFoodTweaks_tickConsumeFishReturnCookedFish(CallbackInfo ci) {
         if(ModHelper.ModHelperFields.IS_RAW_FISH_CONSUMED) {
             switch (ModHelper.ModHelperFields.COOKED_RAW_FISH_TYPE)
             {

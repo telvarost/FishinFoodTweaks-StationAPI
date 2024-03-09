@@ -6,7 +6,6 @@ import net.minecraft.item.ItemInstance;
 import net.modificationstation.stationapi.api.client.item.CustomTooltipProvider;
 import net.modificationstation.stationapi.api.template.item.TemplateFoodItem;
 import net.modificationstation.stationapi.api.util.Identifier;
-import org.spongepowered.asm.mixin.Unique;
 
 public class NewFish extends TemplateFoodItem implements CustomTooltipProvider {
 
@@ -28,10 +27,10 @@ public class NewFish extends TemplateFoodItem implements CustomTooltipProvider {
 
     private boolean fishinFoodTweaks_isRawFish(int itemId) {
         return (  (ItemBase.rawFish.id     == itemId)
-                || (Fish.raw_sepia_fish.id  == itemId)
-                || (Fish.raw_salmon_fish.id == itemId)
-                || (Fish.raw_violet_fish.id == itemId)
-                || (Fish.raw_ocean_fish.id  == itemId)
+               || (Fish.raw_sepia_fish.id  == itemId)
+               || (Fish.raw_salmon_fish.id == itemId)
+               || (Fish.raw_violet_fish.id == itemId)
+               || (Fish.raw_ocean_fish.id  == itemId)
         );
     }
 }
