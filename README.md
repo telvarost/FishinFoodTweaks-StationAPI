@@ -7,8 +7,7 @@ A StationAPI mod for Minecraft Beta 1.7.3 adds fish sizes and food tweaks. Speci
 # Fishin' Food Tweaks
 
 You will need ModMenu and GlassConfigAPI if you want to tweak different parts of the mod. See installation instructions below.
-
-**There's a very high chance this mod will not work in multiplayer, as of right now it is purely for singleplayer**
+* Mod now works on Multiplayer with GlassConfigAPI version 2.0+ used to sync configs!
 
 ## List of changes
 
