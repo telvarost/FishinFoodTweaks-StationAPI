@@ -21,7 +21,8 @@
   "entrypoints": {
     "stationapi:event_bus": [
       "com.github.telvarost.fishinfoodtweaks.items.Fish",
-      "com.github.telvarost.fishinfoodtweaks.events.init.RecipeListener"
+      "com.github.telvarost.fishinfoodtweaks.events.init.RecipeListener",
+      "com.github.telvarost.fishinfoodtweaks.events.init.AchievementListener"
     ],
     "stationapi:event_bus_client": [
       "com.github.telvarost.fishinfoodtweaks.items.Texturing"

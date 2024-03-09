@@ -33,15 +33,15 @@ public abstract class FurnaceEntityMixin extends TileEntityBase implements Inven
                         ModHelper.ModHelperFields.COOKED_RAW_FISH_SIZE = this.inventory[0].getDamage();
                         ModHelper.ModHelperFields.COOKED_RAW_FISH_TYPE = -1;
                         ModHelper.ModHelperFields.IS_RAW_FISH_CONSUMED = true;
-                    } else if (this.inventory[0].itemId == Fish.raw_sepia_fish.id) {
+                    } else if (this.inventory[0].itemId == Fish.raw_common_fish.id) {
                         ModHelper.ModHelperFields.COOKED_RAW_FISH_SIZE = this.inventory[0].getDamage();
                         ModHelper.ModHelperFields.COOKED_RAW_FISH_TYPE = 0;
                         ModHelper.ModHelperFields.IS_RAW_FISH_CONSUMED = true;
-                    } else if (this.inventory[0].itemId == Fish.raw_salmon_fish.id) {
+                    } else if (this.inventory[0].itemId == Fish.raw_river_fish.id) {
                         ModHelper.ModHelperFields.COOKED_RAW_FISH_SIZE = this.inventory[0].getDamage();
                         ModHelper.ModHelperFields.COOKED_RAW_FISH_TYPE = 1;
                         ModHelper.ModHelperFields.IS_RAW_FISH_CONSUMED = true;
-                    } else if (this.inventory[0].itemId == Fish.raw_violet_fish.id) {
+                    } else if (this.inventory[0].itemId == Fish.raw_sea_fish.id) {
                         ModHelper.ModHelperFields.COOKED_RAW_FISH_SIZE = this.inventory[0].getDamage();
                         ModHelper.ModHelperFields.COOKED_RAW_FISH_TYPE = 2;
                         ModHelper.ModHelperFields.IS_RAW_FISH_CONSUMED = true;
@@ -66,15 +66,15 @@ public abstract class FurnaceEntityMixin extends TileEntityBase implements Inven
                     break;
 
                 case 0:
-                    this.inventory[2] = new ItemInstance(Fish.cooked_sepia_fish);
+                    this.inventory[2] = new ItemInstance(Fish.cooked_common_fish);
                     break;
 
                 case 1:
-                    this.inventory[2] = new ItemInstance(Fish.cooked_salmon_fish);
+                    this.inventory[2] = new ItemInstance(Fish.cooked_river_fish);
                     break;
 
                 case 2:
-                    this.inventory[2] = new ItemInstance(Fish.cooked_violet_fish);
+                    this.inventory[2] = new ItemInstance(Fish.cooked_sea_fish);
                     break;
 
                 case 3:

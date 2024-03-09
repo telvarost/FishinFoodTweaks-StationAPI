@@ -15,21 +15,29 @@ public class NewFish extends TemplateFoodItem implements CustomTooltipProvider {
 
     @Override
     public String[] getTooltip(ItemInstance itemInstance, String originalTooltip) {
-        int fishSize = itemInstance.getDamage();
-        if (Config.ConfigFields.enableFishHealingTooltip) {
-            double healingDivisor = (fishinFoodTweaks_isRawFish(itemInstance.itemId)) ? 100.0 : 50.0;
-            double healingAmount = (Math.floor(fishSize / healingDivisor) / 2.0);
-            return new String[]{originalTooltip, "§4" + "Heals " + healingAmount, "§7" + (fishSize / 10.0) + " cm"};
+        if (Config.ConfigFields.enableRandomFishSizes) {
+            int fishSize = (0 != itemInstance.getDamage()) ? itemInstance.getDamage() : 250;
+            if (Config.ConfigFields.enableFishHealingTooltip) {
+                double healingDivisor = (fishinFoodTweaks_isRawFish(itemInstance.itemId)) ? 100.0 : 50.0;
+                double healingAmount = (Math.floor(fishSize / healingDivisor) / 2.0);
+                return new String[]{originalTooltip, "§4" + "Heals " + healingAmount, "§7" + (fishSize / 10.0) + " cm"};
+            } else {
+                return new String[]{originalTooltip, "§7" + (fishSize / 10.0) + " cm"};
+            }
         } else {
-            return new String[]{originalTooltip, "§7" + (fishSize / 10.0) + " cm"};
+            if (Config.ConfigFields.enableFishHealingTooltip) {
+                return new String[]{originalTooltip, "§4" + "Heals " + (this.getHealAmount() / 2.0)};
+            } else {
+                return new String[]{originalTooltip};
+            }
         }
     }
 
     private boolean fishinFoodTweaks_isRawFish(int itemId) {
         return (  (ItemBase.rawFish.id     == itemId)
-               || (Fish.raw_sepia_fish.id  == itemId)
-               || (Fish.raw_salmon_fish.id == itemId)
-               || (Fish.raw_violet_fish.id == itemId)
+               || (Fish.raw_common_fish.id  == itemId)
+               || (Fish.raw_river_fish.id == itemId)
+               || (Fish.raw_sea_fish.id == itemId)
                || (Fish.raw_ocean_fish.id  == itemId)
         );
     }

@@ -13,12 +13,12 @@ public class Texturing {
 
     @EventListener
     public void registerTextures(TextureRegisterEvent event) {
-        Fish.raw_sepia_fish.setTexture(NAMESPACE.id("item/sepia_raw_fish"));
-        Fish.cooked_sepia_fish.setTexture(NAMESPACE.id("item/sepia_cooked_fish"));
-        Fish.raw_salmon_fish.setTexture(NAMESPACE.id("item/salmon_raw_fish"));
-        Fish.cooked_salmon_fish.setTexture(NAMESPACE.id("item/salmon_cooked_fish"));
-        Fish.raw_violet_fish.setTexture(NAMESPACE.id("item/violet_raw_fish"));
-        Fish.cooked_violet_fish.setTexture(NAMESPACE.id("item/violet_cooked_fish"));
+        Fish.raw_common_fish.setTexture(NAMESPACE.id("item/sepia_raw_fish"));
+        Fish.cooked_common_fish.setTexture(NAMESPACE.id("item/sepia_cooked_fish"));
+        Fish.raw_river_fish.setTexture(NAMESPACE.id("item/salmon_raw_fish"));
+        Fish.cooked_river_fish.setTexture(NAMESPACE.id("item/salmon_cooked_fish"));
+        Fish.raw_sea_fish.setTexture(NAMESPACE.id("item/violet_raw_fish"));
+        Fish.cooked_sea_fish.setTexture(NAMESPACE.id("item/violet_cooked_fish"));
         Fish.raw_ocean_fish.setTexture(NAMESPACE.id("item/ocean_raw_fish"));
         Fish.cooked_ocean_fish.setTexture(NAMESPACE.id("item/ocean_cooked_fish"));
     }

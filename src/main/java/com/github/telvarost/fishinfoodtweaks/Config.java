@@ -16,7 +16,7 @@ public class Config {
         public static Boolean enableRandomFishSizes = true;
 
         @ConfigName("Calculate Water Surface Size")
-        @Comment("Adjusts fish size probability slightly")
+        @Comment("Adjusts fish size/type based on area")
         public static Boolean calculateWaterSurfaceSize = true;
 
         @ConfigName("Display Fish Healing Tooltip")
@@ -26,7 +26,7 @@ public class Config {
         public static Boolean enableFoodHealingTooltips = false;
 
         @ConfigName("Enable Non-vanilla Fish")
-        @Comment("Allows non-vanilla fish types to be caught")
+        @Comment("Mod should not be removed if set to true")
         public static Boolean enableNonVanillaFish = false;
 
         @ConfigName("Enable Oceanic Fish")
