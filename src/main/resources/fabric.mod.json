@@ -33,6 +33,9 @@
       "com.github.telvarost.fishinfoodtweaks.Config"
     ],
     "gcapi:presave": [
+    ],
+    "bhcreative:event_bus": [
+      "com.github.telvarost.fishinfoodtweaks.events.init.CreativeListener"
     ]
   },
   "mixins": [

@@ -19,18 +19,18 @@ public class Fish {
     public static ItemBase cooked_ocean_fish;
 
     @Entrypoint.Namespace
-    final Namespace namespace = Null.get();
+    public static final Namespace NAMESPACE = Null.get();
 
     @EventListener
     void registerItems(ItemRegistryEvent event) {
-        raw_common_fish = new NewFish(namespace.id("raw_common_fish"), 2, false).setMaxStackSize(1).setTranslationKey(namespace, "RawCommonFish");
-        cooked_common_fish = new NewFish(namespace.id("cooked_common_fish"), 5, false).setMaxStackSize(1).setTranslationKey(namespace, "CookedCommonFish");
-        raw_river_fish = new NewFish(namespace.id("raw_river_fish"), 2, false).setMaxStackSize(1).setTranslationKey(namespace, "RawRiverFish");
-        cooked_river_fish = new NewFish(namespace.id("cooked_river_fish"), 5, false).setMaxStackSize(1).setTranslationKey(namespace, "CookedRiverFish");
-        raw_sea_fish = new NewFish(namespace.id("raw_sea_fish"), 2, false).setMaxStackSize(1).setTranslationKey(namespace, "RawSeaFish");
-        cooked_sea_fish = new NewFish(namespace.id("cooked_sea_fish"), 5, false).setMaxStackSize(1).setTranslationKey(namespace, "CookedSeaFish");
-        raw_ocean_fish = new NewFish(namespace.id("raw_ocean_fish"), 2, false).setMaxStackSize(1).setTranslationKey(namespace, "RawOceanFish");
-        cooked_ocean_fish = new NewFish(namespace.id("cooked_ocean_fish"), 5, false).setMaxStackSize(1).setTranslationKey(namespace, "CookedOceanFish");
+        raw_common_fish = new NewFish(NAMESPACE.id("raw_common_fish"), 2, false).setMaxStackSize(1).setTranslationKey(NAMESPACE, "RawCommonFish");
+        cooked_common_fish = new NewFish(NAMESPACE.id("cooked_common_fish"), 5, false).setMaxStackSize(1).setTranslationKey(NAMESPACE, "CookedCommonFish");
+        raw_river_fish = new NewFish(NAMESPACE.id("raw_river_fish"), 2, false).setMaxStackSize(1).setTranslationKey(NAMESPACE, "RawRiverFish");
+        cooked_river_fish = new NewFish(NAMESPACE.id("cooked_river_fish"), 5, false).setMaxStackSize(1).setTranslationKey(NAMESPACE, "CookedRiverFish");
+        raw_sea_fish = new NewFish(NAMESPACE.id("raw_sea_fish"), 2, false).setMaxStackSize(1).setTranslationKey(NAMESPACE, "RawSeaFish");
+        cooked_sea_fish = new NewFish(NAMESPACE.id("cooked_sea_fish"), 5, false).setMaxStackSize(1).setTranslationKey(NAMESPACE, "CookedSeaFish");
+        raw_ocean_fish = new NewFish(NAMESPACE.id("raw_ocean_fish"), 2, false).setMaxStackSize(1).setTranslationKey(NAMESPACE, "RawOceanFish");
+        cooked_ocean_fish = new NewFish(NAMESPACE.id("cooked_ocean_fish"), 5, false).setMaxStackSize(1).setTranslationKey(NAMESPACE, "CookedOceanFish");
 
         items = new ItemBase[]{
                 Fish.raw_common_fish,
