@@ -8,6 +8,7 @@ A StationAPI mod for Minecraft Beta 1.7.3 adds fish sizes and food tweaks. Speci
 
 You will need ModMenu and GlassConfigAPI if you want to tweak different parts of the mod. See installation instructions below.
 * Mod now works on Multiplayer with GlassConfigAPI version 2.0+ used to sync configs!
+* Mod has BHCreative creative mode support (adds a tab with unique fish to creative menu)
 
 ## List of changes
 
