@@ -1,13 +1,9 @@
 package com.github.telvarost.fishinfoodtweaks.achievement;
 
 import com.github.telvarost.fishinfoodtweaks.items.Fish;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.achievement.Achievement;
 import net.minecraft.block.BlockBase;
 import net.minecraft.item.ItemBase;
-import net.minecraft.stat.RegisteringStat;
-import net.minecraft.stat.Stat;
 
 import java.util.ArrayList;
 import java.util.List;

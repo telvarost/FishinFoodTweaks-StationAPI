@@ -62,8 +62,11 @@ public abstract class FishHookMixin extends EntityBase {
             if (Config.ConfigFields.enableBiggerFish && 250 <= _amountOfWaterBlocks) {
                 fishSize = (int)Math.round(1000.0 * gammaDistribution.sample());
 
-                if (1000 <= fishSize) {
+                if (990 <= fishSize) {
                     _specialFish = true;
+                }
+
+                if (1000 <= fishSize) {
                     int ones = rand.nextInt(10) * 10;
                     int tenths = rand.nextInt(10);
 
@@ -138,8 +141,12 @@ public abstract class FishHookMixin extends EntityBase {
                                 player.incrementStat(FishinFoodTweaksAchievements.OCEAN_FISH);
                             }
 
-                            if (750 <= fishSize) {
-                                /** - Do nothing */
+                            if (500 <= fishSize) {
+                                if (600 <= fishSize) {
+                                    /** - Do nothing */
+                                } else {
+                                    fishSize = (int)(fishSize * 1.1);
+                                }
                             } else {
                                 fishSize = fishSize + 125;
                                 fishSize = (int)(fishSize * 1.1);
@@ -217,7 +224,6 @@ public abstract class FishHookMixin extends EntityBase {
         int fishSize = (int)Math.round(600.0 * gammaDistribution.sample());
 
         if (550 <= fishSize) {
-            _specialFish = true;
             int ones = rand.nextInt(10) * 10;
             int tenths = rand.nextInt(10);
 
@@ -225,6 +231,10 @@ public abstract class FishHookMixin extends EntityBase {
 
             if (fishSize == 699) {
                 fishSize = fishSize + rand.nextInt(2);
+            }
+
+            if (690 <= fishSize && fishSize <= 700) {
+                _specialFish = true;
             }
         } else {
             fishSize = fishSize + 100;
