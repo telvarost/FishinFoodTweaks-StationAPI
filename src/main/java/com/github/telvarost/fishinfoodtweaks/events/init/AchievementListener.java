@@ -10,8 +10,6 @@ import net.modificationstation.stationapi.api.event.achievement.AchievementRegis
 import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
 import net.modificationstation.stationapi.api.util.Namespace;
 
-import java.util.List;
-
 public class AchievementListener {
 
     @Entrypoint.Namespace
