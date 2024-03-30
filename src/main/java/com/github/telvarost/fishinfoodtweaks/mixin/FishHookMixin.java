@@ -47,7 +47,7 @@ public abstract class FishHookMixin extends EntityBase {
             )
     )
     public boolean fishinFoodTweaks_method_956(Level instance, EntityBase entityBase) {
-        if (Config.ConfigFields.enableRandomFishSizes) {
+        if (Config.config.enableRandomFishSizes) {
             PlayerBase player = PlayerHelper.getPlayerFromGame();
             fishinFoodTweaks_calculateWaterSurfaceSize(instance);
 
@@ -59,7 +59,7 @@ public abstract class FishHookMixin extends EntityBase {
             GammaDistribution gammaDistribution = new GammaDistribution(2, 0.125 + surfaceWaterAdjustment);
 
             /** - Calculate size of fish */
-            if (Config.ConfigFields.enableBiggerFish && 250 <= _amountOfWaterBlocks) {
+            if (Config.config.enableBiggerFish && 250 <= _amountOfWaterBlocks) {
                 fishSize = (int)Math.round(1000.0 * gammaDistribution.sample());
 
                 if (990 <= fishSize) {
@@ -82,13 +82,13 @@ public abstract class FishHookMixin extends EntityBase {
                 fishSize = fishinFoodTweaks_computeNormalFishSize(gammaDistribution);
             }
 
-            if (Config.ConfigFields.enableNonVanillaFish) {
+            if (Config.config.enableNonVanillaFish) {
                 if (false == _specialFish) {
                     int fishType;
 
-                    if (Config.ConfigFields.enableBiggerFish && 250 <= _amountOfWaterBlocks) {
+                    if (Config.config.enableBiggerFish && 250 <= _amountOfWaterBlocks) {
                         fishType = rand.nextInt(4);
-                        if (Config.ConfigFields.calculateWaterSurfaceSize && 1 == fishType) {
+                        if (Config.config.calculateWaterSurfaceSize && 1 == fishType) {
                             fishType = rand.nextInt(4);
                         }
                     } else if (150 <= _amountOfWaterBlocks) {
@@ -172,13 +172,13 @@ public abstract class FishHookMixin extends EntityBase {
                 }
             }
             ((Item)entityBase).item.setDamage(fishSize);
-        } else if (Config.ConfigFields.enableNonVanillaFish) {
+        } else if (Config.config.enableNonVanillaFish) {
             int fishType;
             fishinFoodTweaks_calculateWaterSurfaceSize(instance);
 
             if (250 <= _amountOfWaterBlocks) {
                 fishType = rand.nextInt(5);
-                if (Config.ConfigFields.calculateWaterSurfaceSize && 1 == fishType) {
+                if (Config.config.calculateWaterSurfaceSize && 1 == fishType) {
                     fishType = rand.nextInt(5);
                 }
             } else if (150 <= _amountOfWaterBlocks) {
@@ -244,7 +244,7 @@ public abstract class FishHookMixin extends EntityBase {
     }
 
     @Unique void fishinFoodTweaks_calculateWaterSurfaceSize(Level instance) {
-        if (Config.ConfigFields.calculateWaterSurfaceSize) {
+        if (Config.config.calculateWaterSurfaceSize) {
             /** - Set up water block search */
             _amountOfWaterBlocks = 0;
             _blockY = 0;

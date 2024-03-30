@@ -15,9 +15,9 @@ public class NewFish extends TemplateFoodItem implements CustomTooltipProvider {
 
     @Override
     public String[] getTooltip(ItemInstance itemInstance, String originalTooltip) {
-        if (Config.ConfigFields.enableRandomFishSizes) {
+        if (Config.config.enableRandomFishSizes) {
             int fishSize = (0 != itemInstance.getDamage()) ? itemInstance.getDamage() : 250;
-            if (Config.ConfigFields.enableFishHealingTooltip) {
+            if (Config.config.enableFishHealingTooltip) {
                 double healingDivisor = (fishinFoodTweaks_isRawFish(itemInstance.itemId)) ? 100.0 : 50.0;
                 double healingAmount = (Math.floor(fishSize / healingDivisor) / 2.0);
                 return new String[]{originalTooltip, "§4" + "Heals " + healingAmount, "§7" + (fishSize / 10.0) + " cm"};
@@ -25,7 +25,7 @@ public class NewFish extends TemplateFoodItem implements CustomTooltipProvider {
                 return new String[]{originalTooltip, "§7" + (fishSize / 10.0) + " cm"};
             }
         } else {
-            if (Config.ConfigFields.enableFishHealingTooltip) {
+            if (Config.config.enableFishHealingTooltip) {
                 return new String[]{originalTooltip, "§4" + "Heals " + (this.getHealAmount() / 2.0)};
             } else {
                 return new String[]{originalTooltip};

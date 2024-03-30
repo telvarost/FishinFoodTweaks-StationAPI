@@ -26,7 +26,7 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
 
     @Inject(method = "use", at = @At(value = "HEAD"), cancellable = true)
     public void fishinFoodTweaks_useFood(ItemInstance itemInstance, Level arg2, PlayerBase arg3, CallbackInfoReturnable<ItemInstance> cir) {
-        if (  (Config.ConfigFields.enableRandomFishSizes)
+        if (  (Config.config.enableRandomFishSizes)
            && (  (fishinFoodTweaks_isRawFish(itemInstance.itemId))
               || (fishinFoodTweaks_isCookedFish(itemInstance.itemId))
               )
@@ -42,7 +42,7 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
 
     @Override
     public String[] getTooltip(ItemInstance itemInstance, String originalTooltip) {
-        if (  (Config.ConfigFields.enableRandomFishSizes)
+        if (  (Config.config.enableRandomFishSizes)
            && (  (fishinFoodTweaks_isRawFish(itemInstance.itemId))
               || (fishinFoodTweaks_isCookedFish(itemInstance.itemId))
               )
@@ -71,7 +71,7 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
                 }
             }
 
-            if (Config.ConfigFields.enableFishHealingTooltip) {
+            if (Config.config.enableFishHealingTooltip) {
                 double healingDivisor = (fishinFoodTweaks_isRawFish(itemInstance.itemId)) ? 100.0 : 50.0;
                 double healingAmount = (Math.floor(fishSize / healingDivisor) / 2.0);
                 return new String[]{originalTooltip, "§4" + "Heals " + healingAmount, "§7" + (fishSize / 10.0) + " cm"};
@@ -83,13 +83,13 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
                || (fishinFoodTweaks_isCookedFish(itemInstance.itemId))
                )
             {
-                if (Config.ConfigFields.enableFishHealingTooltip) {
+                if (Config.config.enableFishHealingTooltip) {
                     return new String[]{originalTooltip, "§4" + "Heals " + (this.healAmount / 2.0)};
                 } else {
                     return new String[]{originalTooltip};
                 }
             } else {
-                if (Config.ConfigFields.enableFoodHealingTooltips) {
+                if (Config.config.enableFoodHealingTooltips) {
                     return new String[]{originalTooltip, "§4" + "Heals " + (this.healAmount / 2.0)};
                 } else {
                     return new String[]{originalTooltip};
