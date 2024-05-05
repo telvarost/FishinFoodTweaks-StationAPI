@@ -18,13 +18,13 @@ public class FishinFoodTweaksAchievements {
 	public static final Achievement OCEAN_FISH = make("ocean_fish", Fish.raw_ocean_fish, 0, 2, LITTLE_FISH, false);
 
 	private static Achievement make(String name, BlockBase icon, int x, int y, Achievement parent) {
-		Achievement achievement = new Achievement(achievementID++, "fishinfoodtweaks:" + name, x, y, icon, parent);
+		Achievement achievement = new Achievement(achievementID++, "fishinfoodtweaks." + name, x, y, icon, parent);
 		ACHIEVEMENTS.add(achievement);
 		return achievement;
 	}
 
 	private static Achievement make(String name, ItemBase icon, int x, int y, Achievement parent, boolean isChallenge) {
-		Achievement achievement = new Achievement(achievementID++, "fishinfoodtweaks:" + name, x, y, icon, parent);
+		Achievement achievement = new Achievement(achievementID++, "fishinfoodtweaks." + name, x, y, icon, parent);
 		if (isChallenge) {
 			achievement.setUnusual();
 		}

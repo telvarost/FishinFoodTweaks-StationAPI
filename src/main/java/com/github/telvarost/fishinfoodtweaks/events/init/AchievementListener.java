@@ -17,7 +17,7 @@ public class AchievementListener {
 
     @EventListener
     public void registerAchievements(AchievementRegisterEvent event) {
-        AchievementPage achievementPage = new FishinFoodTweaksAchievementPage(namespace.id("achievements"));
+        AchievementPage achievementPage = new FishinFoodTweaksAchievementPage(namespace.id("fishinAchievements"));
         event.achievements.addAll(FishinFoodTweaksAchievements.ACHIEVEMENTS);
         achievementPage.addAchievements(FishinFoodTweaksAchievements.ACHIEVEMENTS.toArray(Achievement[]::new));
         FishinFoodTweaksAchievements.ACHIEVEMENTS.forEach(Stat::register);
