@@ -1,8 +1,8 @@
 package com.github.telvarost.fishinfoodtweaks.items;
 
 import com.github.telvarost.fishinfoodtweaks.Config;
-import net.minecraft.item.ItemBase;
-import net.minecraft.item.ItemInstance;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.modificationstation.stationapi.api.client.item.CustomTooltipProvider;
 import net.modificationstation.stationapi.api.template.item.TemplateFoodItem;
 import net.modificationstation.stationapi.api.util.Identifier;
@@ -14,7 +14,7 @@ public class NewFish extends TemplateFoodItem implements CustomTooltipProvider {
     }
 
     @Override
-    public String[] getTooltip(ItemInstance itemInstance, String originalTooltip) {
+    public String[] getTooltip(ItemStack itemInstance, String originalTooltip) {
         if (Config.config.enableRandomFishSizes) {
             int fishSize = (0 != itemInstance.getDamage()) ? itemInstance.getDamage() : 250;
             if (Config.config.enableFishHealingTooltip) {
@@ -26,7 +26,7 @@ public class NewFish extends TemplateFoodItem implements CustomTooltipProvider {
             }
         } else {
             if (Config.config.enableFishHealingTooltip) {
-                return new String[]{originalTooltip, "§4" + "Heals " + (this.getHealAmount() / 2.0)};
+                return new String[]{originalTooltip, "§4" + "Heals " + (this.getHealthRestored() / 2.0)};
             } else {
                 return new String[]{originalTooltip};
             }
@@ -34,7 +34,7 @@ public class NewFish extends TemplateFoodItem implements CustomTooltipProvider {
     }
 
     private boolean fishinFoodTweaks_isRawFish(int itemId) {
-        return (  (ItemBase.rawFish.id     == itemId)
+        return (  (Item.RAW_FISH.id     == itemId)
                || (Fish.raw_common_fish.id  == itemId)
                || (Fish.raw_river_fish.id == itemId)
                || (Fish.raw_sea_fish.id == itemId)

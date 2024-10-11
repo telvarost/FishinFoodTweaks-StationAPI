@@ -1,6 +1,6 @@
 package com.github.telvarost.fishinfoodtweaks.achievement;
 
-import net.minecraft.block.BlockBase;
+import net.minecraft.block.Block;
 import net.modificationstation.stationapi.api.client.gui.screen.achievement.AchievementPage;
 import net.modificationstation.stationapi.api.util.Identifier;
 
@@ -16,22 +16,22 @@ public class FishinFoodTweaksAchievementPage extends AchievementPage {
 	
 	@Override
 	public int getBackgroundTexture(Random random, int column, int row, int randomizedRow, int currentTexture) {
-		int k = BlockBase.SANDSTONE.texture;
+		int k = Block.SANDSTONE.textureId;
 		int l = random.nextInt(1 + row) + row / 2;
 		if (l <= 37 && row != 35) {
 			if (l == 22) {
-				k = BlockBase.STILL_WATER.texture;
+				k = Block.WATER.textureId;
 			} else if (l == 10) {
-				k = BlockBase.STILL_WATER.texture;
+				k = Block.WATER.textureId;
 			} else if (l == 8) {
-				k = BlockBase.STILL_WATER.texture;
+				k = Block.WATER.textureId;
 			} else if (l > 4) {
-				k = BlockBase.STILL_WATER.texture;
+				k = Block.WATER.textureId;
 			} else if (l > 0) {
-				k = BlockBase.SAND.texture;
+				k = Block.SAND.textureId;
 			}
 		} else {
-			k = BlockBase.SAND.texture;
+			k = Block.SAND.textureId;
 		}
 
 		return k;

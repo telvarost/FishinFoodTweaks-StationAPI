@@ -3,23 +3,22 @@ package com.github.telvarost.fishinfoodtweaks.mixin;
 import com.github.telvarost.fishinfoodtweaks.Config;
 import com.github.telvarost.fishinfoodtweaks.ModHelper;
 import com.github.telvarost.fishinfoodtweaks.items.Fish;
-import net.minecraft.inventory.InventoryBase;
-import net.minecraft.item.ItemBase;
-import net.minecraft.tileentity.TileEntityBase;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.FurnaceBlockEntity;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.item.ItemInstance;
-
-@Mixin(TileEntityFurnace.class)
-public abstract class FurnaceEntityMixin extends TileEntityBase implements InventoryBase {
+@Mixin(FurnaceBlockEntity.class)
+public abstract class FurnaceEntityMixin extends BlockEntity implements Inventory {
 
     @Shadow
-    private ItemInstance[] inventory;
+    private ItemStack[] inventory;
 
     @Shadow protected abstract boolean canAcceptRecipeOutput();
 
@@ -28,7 +27,7 @@ public abstract class FurnaceEntityMixin extends TileEntityBase implements Inven
         if (this.canAcceptRecipeOutput()) {
             if (Config.config.enableRandomFishSizes) {
                 if (this.inventory[0] != null) {
-                    if (this.inventory[0].itemId == ItemBase.rawFish.id) {
+                    if (this.inventory[0].itemId == Item.RAW_FISH.id) {
                         ModHelper.ModHelperFields.COOKED_RAW_FISH_SIZE = this.inventory[0].getDamage();
                         ModHelper.ModHelperFields.COOKED_RAW_FISH_TYPE = -1;
                         ModHelper.ModHelperFields.IS_RAW_FISH_CONSUMED = true;
@@ -61,23 +60,23 @@ public abstract class FurnaceEntityMixin extends TileEntityBase implements Inven
             {
                 default:
                 case -1:
-                    this.inventory[2] = new ItemInstance(ItemBase.cookedFish);
+                    this.inventory[2] = new ItemStack(Item.COOKED_FISH);
                     break;
 
                 case 0:
-                    this.inventory[2] = new ItemInstance(Fish.cooked_common_fish);
+                    this.inventory[2] = new ItemStack(Fish.cooked_common_fish);
                     break;
 
                 case 1:
-                    this.inventory[2] = new ItemInstance(Fish.cooked_river_fish);
+                    this.inventory[2] = new ItemStack(Fish.cooked_river_fish);
                     break;
 
                 case 2:
-                    this.inventory[2] = new ItemInstance(Fish.cooked_sea_fish);
+                    this.inventory[2] = new ItemStack(Fish.cooked_sea_fish);
                     break;
 
                 case 3:
-                    this.inventory[2] = new ItemInstance(Fish.cooked_ocean_fish);
+                    this.inventory[2] = new ItemStack(Fish.cooked_ocean_fish);
                     break;
             }
             this.inventory[2].setDamage(ModHelper.ModHelperFields.COOKED_RAW_FISH_SIZE);

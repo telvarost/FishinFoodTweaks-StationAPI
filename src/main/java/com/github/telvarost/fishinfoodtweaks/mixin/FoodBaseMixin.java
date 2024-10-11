@@ -2,11 +2,11 @@ package com.github.telvarost.fishinfoodtweaks.mixin;
 
 import com.github.telvarost.fishinfoodtweaks.Config;
 import com.github.telvarost.fishinfoodtweaks.items.Fish;
-import net.minecraft.entity.player.PlayerBase;
-import net.minecraft.item.ItemBase;
-import net.minecraft.item.ItemInstance;
-import net.minecraft.item.food.FoodBase;
-import net.minecraft.level.Level;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.FoodItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.modificationstation.stationapi.api.client.item.CustomTooltipProvider;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -15,17 +15,17 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(FoodBase.class)
-public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipProvider {
+@Mixin(FoodItem.class)
+public abstract class FoodBaseMixin extends Item implements CustomTooltipProvider {
 
-    @Shadow private int healAmount;
+    @Shadow private int healthRestored;
 
     public FoodBaseMixin(int i, int j, boolean bl) {
         super(i);
     }
 
     @Inject(method = "use", at = @At(value = "HEAD"), cancellable = true)
-    public void fishinFoodTweaks_useFood(ItemInstance itemInstance, Level arg2, PlayerBase arg3, CallbackInfoReturnable<ItemInstance> cir) {
+    public void fishinFoodTweaks_useFood(ItemStack itemInstance, World arg2, PlayerEntity arg3, CallbackInfoReturnable<ItemStack> cir) {
         if (  (Config.config.enableRandomFishSizes)
            && (  (fishinFoodTweaks_isRawFish(itemInstance.itemId))
               || (fishinFoodTweaks_isCookedFish(itemInstance.itemId))
@@ -35,13 +35,13 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
             int fishSize = (0 != itemInstance.getDamage()) ? itemInstance.getDamage() : 250;
             double healingDivisor = (fishinFoodTweaks_isRawFish(itemInstance.itemId)) ? 100.0 : 50.0;
             int healingAmount = (int)Math.floor(fishSize / healingDivisor);
-            arg3.addHealth(healingAmount);
+            arg3.heal(healingAmount);
             cir.setReturnValue(itemInstance);
         }
     }
 
     @Override
-    public String[] getTooltip(ItemInstance itemInstance, String originalTooltip) {
+    public String[] getTooltip(ItemStack itemInstance, String originalTooltip) {
         if (  (Config.config.enableRandomFishSizes)
            && (  (fishinFoodTweaks_isRawFish(itemInstance.itemId))
               || (fishinFoodTweaks_isCookedFish(itemInstance.itemId))
@@ -84,13 +84,13 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
                )
             {
                 if (Config.config.enableFishHealingTooltip) {
-                    return new String[]{originalTooltip, "§4" + "Heals " + (this.healAmount / 2.0)};
+                    return new String[]{originalTooltip, "§4" + "Heals " + (this.healthRestored / 2.0)};
                 } else {
                     return new String[]{originalTooltip};
                 }
             } else {
                 if (Config.config.enableFoodHealingTooltips) {
-                    return new String[]{originalTooltip, "§4" + "Heals " + (this.healAmount / 2.0)};
+                    return new String[]{originalTooltip, "§4" + "Heals " + (this.healthRestored / 2.0)};
                 } else {
                     return new String[]{originalTooltip};
                 }
@@ -100,7 +100,7 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
 
     @Unique
     private boolean fishinFoodTweaks_isRawFish(int itemId) {
-        return (  (ItemBase.rawFish.id     == itemId)
+        return (  (Item.RAW_FISH.id     == itemId)
                || (Fish.raw_common_fish.id  == itemId)
                || (Fish.raw_river_fish.id == itemId)
                || (Fish.raw_sea_fish.id == itemId)
@@ -110,7 +110,7 @@ public abstract class FoodBaseMixin extends ItemBase implements CustomTooltipPro
 
     @Unique
     private boolean fishinFoodTweaks_isCookedFish(int itemId) {
-        return (  (ItemBase.cookedFish.id     == itemId)
+        return (  (Item.COOKED_FISH.id     == itemId)
                 || (Fish.cooked_common_fish.id  == itemId)
                 || (Fish.cooked_river_fish.id == itemId)
                 || (Fish.cooked_sea_fish.id == itemId)
