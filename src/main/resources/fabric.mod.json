@@ -29,10 +29,10 @@
     ],
     "stationapi:event_bus_server": [
     ],
-    "gcapi": [
+    "gcapi3": [
       "com.github.telvarost.fishinfoodtweaks.Config"
     ],
-    "gcapi:presave": [
+    "gcapi3:presave": [
     ],
     "bhcreative:event_bus": [
       "com.github.telvarost.fishinfoodtweaks.events.init.CreativeListener"
@@ -44,7 +44,7 @@
 
   "depends": {
     "minecraft": "1.0.0-beta.7.3",
-    "gcapi": "*",
+    "gcapi3": ">=3.0.2",
     "stationapi": "*"
   },
 
