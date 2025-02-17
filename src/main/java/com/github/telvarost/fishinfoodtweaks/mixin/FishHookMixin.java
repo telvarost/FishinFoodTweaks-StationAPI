@@ -3,6 +3,8 @@ package com.github.telvarost.fishinfoodtweaks.mixin;
 import com.github.telvarost.fishinfoodtweaks.Config;
 import com.github.telvarost.fishinfoodtweaks.achievement.FishinFoodTweaksAchievements;
 import com.github.telvarost.fishinfoodtweaks.items.Fish;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
@@ -15,7 +17,6 @@ import org.apache.commons.math3.distribution.GammaDistribution;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Random;
 
@@ -39,14 +40,14 @@ public abstract class FishHookMixin extends Entity {
         super(arg);
     }
 
-    @Redirect(
+    @WrapOperation(
             method = "use",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"
             )
     )
-    public boolean fishinFoodTweaks_method_956(World instance, Entity entityBase) {
+    public boolean fishinFoodTweaks_use(World instance, Entity entity, Operation<Boolean> original) {
         if (Config.config.enableRandomFishSizes) {
             PlayerEntity player = PlayerHelper.getPlayerFromGame();
             fishinFoodTweaks_calculateWaterSurfaceSize(instance);
@@ -103,7 +104,7 @@ public abstract class FishHookMixin extends Entity {
                     {
                         default:
                         case 0:
-                            ((ItemEntity)entityBase).stack = new ItemStack(Fish.raw_common_fish, 1);
+                            ((ItemEntity)entity).stack = new ItemStack(Fish.raw_common_fish, 1);
 
                             if (400 <= fishSize) {
                                 fishSize = (int)(fishSize * 0.50);
@@ -113,7 +114,7 @@ public abstract class FishHookMixin extends Entity {
                             break;
 
                         case 1:
-                            ((ItemEntity)entityBase).stack = new ItemStack(Fish.raw_river_fish, 1);
+                            ((ItemEntity)entity).stack = new ItemStack(Fish.raw_river_fish, 1);
 
                             if (350 <= fishSize) {
                                 fishSize = (int)(fishSize * 0.8);
@@ -124,7 +125,7 @@ public abstract class FishHookMixin extends Entity {
                             break;
 
                         case 2:
-                            ((ItemEntity)entityBase).stack = new ItemStack(Fish.raw_sea_fish, 1);
+                            ((ItemEntity)entity).stack = new ItemStack(Fish.raw_sea_fish, 1);
 
                             if (450 <= fishSize) {
                                 fishSize = (int)(fishSize * 0.9);
@@ -135,7 +136,7 @@ public abstract class FishHookMixin extends Entity {
                             break;
 
                         case 3:
-                            ((ItemEntity)entityBase).stack = new ItemStack(Fish.raw_ocean_fish, 1);
+                            ((ItemEntity)entity).stack = new ItemStack(Fish.raw_ocean_fish, 1);
 
                             if (null != player) {
                                 player.incrementStat(FishinFoodTweaksAchievements.OCEAN_FISH);
@@ -171,7 +172,7 @@ public abstract class FishHookMixin extends Entity {
                     player.incrementStat(FishinFoodTweaksAchievements.LITTLE_FISH);
                 }
             }
-            ((ItemEntity)entityBase).stack.setDamage(fishSize);
+            ((ItemEntity)entity).stack.setDamage(fishSize);
         } else if (Config.config.enableNonVanillaFish) {
             int fishType;
             fishinFoodTweaks_calculateWaterSurfaceSize(instance);
@@ -198,24 +199,24 @@ public abstract class FishHookMixin extends Entity {
                     break;
 
                 case 0:
-                    ((ItemEntity) entityBase).stack = new ItemStack(Fish.raw_common_fish, 1);
+                    ((ItemEntity) entity).stack = new ItemStack(Fish.raw_common_fish, 1);
                     break;
 
                 case 1:
-                    ((ItemEntity) entityBase).stack = new ItemStack(Fish.raw_river_fish, 1);
+                    ((ItemEntity) entity).stack = new ItemStack(Fish.raw_river_fish, 1);
                     break;
 
                 case 2:
-                    ((ItemEntity) entityBase).stack = new ItemStack(Fish.raw_sea_fish, 1);
+                    ((ItemEntity) entity).stack = new ItemStack(Fish.raw_sea_fish, 1);
                     break;
 
                 case 3:
-                    ((ItemEntity) entityBase).stack = new ItemStack(Fish.raw_ocean_fish, 1);
+                    ((ItemEntity) entity).stack = new ItemStack(Fish.raw_ocean_fish, 1);
                     break;
             }
         }
 
-        return instance.spawnEntity(entityBase);
+        return original.call(instance, entity);
     }
 
     @Unique
