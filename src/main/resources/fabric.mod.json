@@ -20,6 +20,7 @@
   "environment": "*",
   "entrypoints": {
     "stationapi:event_bus": [
+      "com.github.telvarost.fishinfoodtweaks.ModHelper",
       "com.github.telvarost.fishinfoodtweaks.items.Fish",
       "com.github.telvarost.fishinfoodtweaks.events.init.RecipeListener",
       "com.github.telvarost.fishinfoodtweaks.events.init.AchievementListener"
@@ -44,8 +45,8 @@
 
   "depends": {
     "minecraft": "1.0.0-beta.7.3",
-    "gcapi3": ">=3.0.2",
-    "stationapi": "*"
+    "stationapi": ">=2.0.0-alpha.3",
+    "gcapi3": ">=3.0.2"
   },
 
   "recommends": {

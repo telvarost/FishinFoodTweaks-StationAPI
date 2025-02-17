@@ -1,5 +1,6 @@
 package com.github.telvarost.fishinfoodtweaks.events.init;
 
+import com.github.telvarost.fishinfoodtweaks.ModHelper;
 import com.github.telvarost.fishinfoodtweaks.items.Fish;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.item.Item;
@@ -13,7 +14,7 @@ public class CreativeListener {
 
     @EventListener
     public void onTabInit(TabRegistryEvent event){
-        tabFishinFoodTweaksFish = new SimpleTab(Fish.NAMESPACE.id("raw_common_fish"), Fish.raw_common_fish);
+        tabFishinFoodTweaksFish = new SimpleTab(ModHelper.NAMESPACE.id("raw_common_fish"), Fish.raw_common_fish);
         event.register(tabFishinFoodTweaksFish);
         for (Item item : Fish.items){
             tabFishinFoodTweaksFish.addItem(new ItemStack(item, 1));
