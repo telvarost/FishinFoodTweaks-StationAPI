@@ -2,6 +2,8 @@ package com.github.telvarost.fishinfoodtweaks.mixin;
 
 import com.github.telvarost.fishinfoodtweaks.Config;
 import com.github.telvarost.fishinfoodtweaks.items.Fish;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.FoodItem;
 import net.minecraft.item.Item;
@@ -12,8 +14,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(FoodItem.class)
 public abstract class FoodBaseMixin extends Item implements CustomTooltipProvider {
@@ -24,19 +24,25 @@ public abstract class FoodBaseMixin extends Item implements CustomTooltipProvide
         super(i);
     }
 
-    @Inject(method = "use", at = @At(value = "HEAD"), cancellable = true)
-    public void fishinFoodTweaks_useFood(ItemStack itemInstance, World arg2, PlayerEntity arg3, CallbackInfoReturnable<ItemStack> cir) {
+    @WrapOperation(
+            method = "use",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/entity/player/PlayerEntity;heal(I)V"
+            )
+    )
+    public void fishinFoodTweaks_useFood(PlayerEntity instance, int amount, Operation<Void> original, ItemStack stack, World world, PlayerEntity user) {
         if (  (Config.config.enableRandomFishSizes)
-           && (  (fishinFoodTweaks_isRawFish(itemInstance.itemId))
-              || (fishinFoodTweaks_isCookedFish(itemInstance.itemId))
+           && (  (fishinFoodTweaks_isRawFish(stack.itemId))
+              || (fishinFoodTweaks_isCookedFish(stack.itemId))
               )
         ) {
-            --itemInstance.count;
-            int fishSize = (0 != itemInstance.getDamage()) ? itemInstance.getDamage() : 250;
-            double healingDivisor = (fishinFoodTweaks_isRawFish(itemInstance.itemId)) ? 100.0 : 50.0;
+            int fishSize = (0 != stack.getDamage()) ? stack.getDamage() : 250;
+            double healingDivisor = (fishinFoodTweaks_isRawFish(stack.itemId)) ? 100.0 : 50.0;
             int healingAmount = (int)Math.floor(fishSize / healingDivisor);
-            arg3.heal(healingAmount);
-            cir.setReturnValue(itemInstance);
+            original.call(instance, healingAmount);
+        } else {
+            original.call(instance, amount);
         }
     }
 
